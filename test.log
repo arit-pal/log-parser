@@ -1,0 +1,1007 @@
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200
+2026-06-13T12:00:01Z [INFO] gateway-service: Incoming POST request to /api/v1/auth/login from IP 192.168.1.45
+2026-06-13T12:00:02Z [INFO] auth-service: Generating JWT token for user_id: 99482
+2026-06-13T12:00:05Z [INFO] gateway-service: HTTP 200 OK returned for /api/v1/auth/login (duration: 45ms)
+2026-06-13T12:01:12Z [INFO] user-service: Fetching profile data for user_id: 99482
+2026-06-13T12:01:13Z [WARN] user-service: Profile picture resource returned 404 from external S3 bucket
+2026-06-13T12:02:22Z [INFO] order-service: Processing checkout initialized for checkout_id: chk_883011
+2026-06-13T12:02:23Z [INFO] inventory-service: Reserving SKU-99204 (quantity: 1)
+2026-06-13T12:02:24Z [ERROR] payment-service: Credit card processing failed: Stripe API returned insufficient funds
+2026-06-13T12:02:24Z [WARN] order-service: Checkout state changed to FAILED for checkout_id: chk_883011
+2026-06-13T12:03:01Z [INFO] gateway-service: Incoming GET request to /api/v1/products/search?q=rust-book
+2026-06-13T12:03:02Z [INFO] search-service: Executing Elasticsearch query on index 'products'
+2026-06-13T12:04:45Z [INFO] notification-service: Sending transactional email (type: order_failed) to user_id: 99482
+2026-06-13T12:05:00Z [INFO] telemetry-agent: Flushing metrics packet to Prometheus server
+2026-06-13T12:05:12Z [INFO] gateway-service: Incoming POST request to /api/v1/support/ticket
+2026-06-13T12:05:14Z [ERROR] database-cluster: Connection pool exhausted. Maximum active connections (100) reached.
+2026-06-13T12:05:15Z [ERROR] user-service: Failed to fetch db connection instance: Timeout waiting for repository pool
+2026-06-13T12:05:15Z [ERROR] gateway-service: HTTP 500 Internal Server Error returned for /api/v1/support/ticket
+2026-06-13T12:06:01Z [INFO] database-cluster: Successfully reaped 14 leaked connection sessions
+2026-06-13T12:06:05Z [INFO] gateway-service: Systems operational. Health-check endpoint /health returned 200

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Wasm Parser</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 30px;
+            background: #0e1118;
+            color: #e4e6eb;
+        }
+
+        .box {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #1c1f26;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #2d3139;
+        }
+
+        input[type="file"] {
+            margin: 20px 0;
+            display: block;
+            color: #a3a7b0;
+        }
+
+        #output {
+            background: #090b0f;
+            color: #4af626;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            border: 1px solid #1a1d24;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h2>Rust + Wasm Engine Sandbox</h2>
+        <p>Upload a log file to test the internal engine processing:</p>
+
+        <input type="file" id="fileInput" />
+
+        <h3>Engine State:</h3>
+        <div id="output">Initializing...</div>
+    </div>
+
+    <script type="module">
+        import init, { LogIndexer } from '../pkg/log_parser.js';
+
+        const fileInput = document.getElementById('fileInput');
+        const output = document.getElementById('output');
+
+        async function start() {
+            try {
+                await init();
+                output.innerText = "Engine loaded. Ready for file streaming.";
+
+                fileInput.addEventListener('change', async (event) => {
+                    const file = event.target.files[0];
+                    if (!file) return;
+
+                    output.innerText = `Streaming ${file.name}...`;
+
+                    const reader = new FileReader();
+                    reader.onload = async (e) => {
+                        const fileBytes = new Uint8Array(e.target.result);
+
+                        console.time("Processing Time");
+                        const indexer = new LogIndexer(fileBytes);
+                        console.timeEnd("Processing Time");
+
+                        const totalLines = indexer.total_lines();
+                        const totalErrors = indexer.total_errors();
+                        const preview = indexer.get_line(0) || "[Empty Row]";
+
+                        output.innerText =
+                            `📊 Analysis Results:\n` +
+                            `---------------------------\n` +
+                            `Total Log Rows: ${totalLines.toLocaleString()}\n` +
+                            `Total Errors:   ${totalErrors.toLocaleString()}\n\n` +
+                            `Row 1 Preview:  "${preview}"`;
+                    };
+                    reader.readAsArrayBuffer(file);
+                });
+            } catch (err) {
+                output.innerText = "Error loading Wasm engine: " + err;
+                console.error(err);
+            }
+        }
+
+        start();
+    </script>
+
+</body>
+
+</html>
