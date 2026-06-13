@@ -1048,3 +1048,4 @@
 2026-06-13T08:44:52Z [INFO] telemetry-agent: Cleanup job finished: removed 257 expired sessions from Redis
 2026-06-13T08:44:54Z [DEBUG] cron-scheduler: Executing SQL query: SELECT * FROM orders WHERE user_id = 73082 LIMIT 50
 2026-06-13T08:44:57Z [DEBUG] support-service: Signing JWT token with kid=rsa-key-1
+{"ts":"2025-01-15T10:30:00Z","level":"info","msg":"request handled","duration_ms":42}

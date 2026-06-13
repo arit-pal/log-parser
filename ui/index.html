@@ -396,6 +396,163 @@
             outline: 1px solid rgba(56, 166, 255, 0.2);
             outline-offset: -1px;
         }
+
+        .log-line {
+            cursor: pointer;
+        }
+
+        .detail-panel {
+            display: none;
+            margin-top: 12px;
+            border: 1px solid #21262d;
+            border-radius: 10px;
+            background: #0d1117;
+            overflow: hidden;
+        }
+
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: #161b22;
+            border-bottom: 1px solid #21262d;
+        }
+
+        .detail-header .ln {
+            color: #6e7681;
+            font-family: 'SF Mono', monospace;
+            font-size: 12px;
+            min-width: auto;
+            margin-right: 0;
+        }
+
+        .detail-badge {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            text-transform: uppercase;
+        }
+
+        .detail-badge.error { background: #5c2020; color: #f85149; }
+        .detail-badge.warn  { background: #5c4a10; color: #d29922; }
+        .detail-badge.info  { background: #1a3a5c; color: #58a6ff; }
+        .detail-badge.debug { background: #3b2660; color: #bc8cff; }
+        .detail-badge.none  { background: #30363d; color: #8b949e; }
+
+        .detail-header .spacer { flex: 1; }
+
+        .detail-btn {
+            background: #161b22;
+            color: #c9d1d9;
+            border: 1px solid #21262d;
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 11px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: background 0.15s;
+            font-family: inherit;
+        }
+
+        .detail-btn:hover {
+            background: #1c2128;
+            border-color: #363b42;
+        }
+
+        .detail-btn.copied {
+            color: #3fb950;
+            border-color: #1a4a2a;
+        }
+
+        .detail-close {
+            background: none;
+            border: none;
+            color: #484f58;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            transition: color 0.15s, background 0.15s;
+        }
+
+        .detail-close:hover {
+            color: #e1e4e8;
+            background: #21262d;
+        }
+
+        .detail-raw {
+            padding: 12px 14px;
+            font-family: 'SF Mono', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            color: #c9d1d9;
+            white-space: pre-wrap;
+            word-break: break-all;
+            border-bottom: 1px solid #21262d;
+            max-height: 160px;
+            overflow-y: auto;
+        }
+
+        .detail-json {
+            padding: 12px 14px;
+        }
+
+        .detail-json-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            color: #58a6ff;
+            font-weight: 500;
+            margin-bottom: 8px;
+            user-select: none;
+            background: none;
+            border: none;
+            padding: 0;
+            font-family: inherit;
+        }
+
+        .detail-json-toggle:hover {
+            color: #79c0ff;
+        }
+
+        .detail-json-toggle svg {
+            transition: transform 0.15s;
+        }
+
+        .detail-json-toggle.open svg {
+            transform: rotate(90deg);
+        }
+
+        .detail-json pre {
+            background: #161b22;
+            border: 1px solid #21262d;
+            border-radius: 8px;
+            padding: 12px;
+            overflow-x: auto;
+            font-family: 'SF Mono', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            color: #c9d1d9;
+            margin: 0;
+            max-height: 240px;
+            overflow-y: auto;
+        }
+
+        .json-key   { color: #7ee787; }
+        .json-str   { color: #a5d6ff; }
+        .json-num   { color: #79c0ff; }
+        .json-bool  { color: #ff7b72; }
+        .json-null  { color: #8b949e; }
+        .json-brace { color: #8b949e; }
+        .json-punct { color: #6e7681; }
     </style>
 </head>
 
@@ -479,6 +636,23 @@
             </div>
         </div>
 
+        <div class="detail-panel" id="detailPanel">
+            <div class="detail-header">
+                <span class="ln" id="detailLn"></span>
+                <span class="detail-badge" id="detailBadge"></span>
+                <span class="spacer"></span>
+                <button class="detail-btn" id="detailCopy">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    <span id="detailCopyText">Copy</span>
+                </button>
+                <button class="detail-close" id="detailClose" title="Close (Esc)">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="detail-raw" id="detailRaw"></div>
+            <div class="detail-json" id="detailJsonWrap" style="display: none;"></div>
+        </div>
+
         <div class="pagination" id="pagination" style="display: none;">
             <button id="prevBtn" disabled>&larr; Prev</button>
             <span id="pageInfo">1 / 1</span>
@@ -487,6 +661,7 @@
 
         <div class="shortcuts" id="shortcuts" style="display: none;">
             <span><kbd>j</kbd><kbd>k</kbd> navigate</span>
+            <span><kbd>Enter</kbd> inspect</span>
             <span><kbd>/</kbd> search</span>
             <span><kbd>Esc</kbd> clear</span>
         </div>
@@ -514,6 +689,14 @@
         const fileNameEl = document.getElementById('fileName');
         const shortcuts = document.getElementById('shortcuts');
         const exportBtn = document.getElementById('exportBtn');
+        const detailPanel = document.getElementById('detailPanel');
+        const detailLn = document.getElementById('detailLn');
+        const detailBadge = document.getElementById('detailBadge');
+        const detailRaw = document.getElementById('detailRaw');
+        const detailJsonWrap = document.getElementById('detailJsonWrap');
+        const detailCopy = document.getElementById('detailCopy');
+        const detailCopyText = document.getElementById('detailCopyText');
+        const detailClose = document.getElementById('detailClose');
 
         const PAGE_SIZE = 100;
 
@@ -624,6 +807,7 @@
             searchQuery = '';
             currentPage = 1;
             selectedLine = -1;
+            hideDetail();
             rebuildFiltered();
             renderVirtual();
         });
@@ -657,6 +841,35 @@
             });
         });
 
+        logContainer.addEventListener('click', (e) => {
+            const visLines = getVisibleLines();
+            const idx = Array.from(visLines).indexOf(e.target.closest('.log-line'));
+            if (idx >= 0) {
+                selectLine(idx);
+                const globalIdx = filteredIndices ? filteredIndices[(currentPage - 1) * PAGE_SIZE + idx] : (currentPage - 1) * PAGE_SIZE + idx;
+                renderDetail(globalIdx);
+            }
+        });
+
+        detailClose.addEventListener('click', hideDetail);
+
+        detailCopy.addEventListener('click', async () => {
+            if (!indexer || selectedLine < 0) return;
+            const globalIdx = filteredIndices
+                ? filteredIndices[(currentPage - 1) * PAGE_SIZE + selectedLine]
+                : (currentPage - 1) * PAGE_SIZE + selectedLine;
+            const line = indexer.get_line(globalIdx) ?? '';
+            try {
+                await navigator.clipboard.writeText(line);
+                detailCopy.classList.add('copied');
+                detailCopyText.textContent = 'Copied!';
+                setTimeout(() => { detailCopy.classList.remove('copied'); detailCopyText.textContent = 'Copy'; }, 1500);
+            } catch (_) {
+                detailCopyText.textContent = 'Failed';
+                setTimeout(() => { detailCopyText.textContent = 'Copy'; }, 1500);
+            }
+        });
+
         function updateCounts() {
             if (!indexer) return;
             document.getElementById('nError').textContent = indexer.count_by_level(4) || '';
@@ -664,6 +877,75 @@
             document.getElementById('nInfo').textContent = indexer.count_by_level(2) || '';
             document.getElementById('nDebug').textContent = indexer.count_by_level(1) || '';
             document.getElementById('nNone').textContent = indexer.count_by_level(0) || '';
+        }
+
+        const LEVEL_NAMES = ['none', 'debug', 'info', 'warn', 'error'];
+
+        function syntaxHighlightJson(obj) {
+            const raw = JSON.stringify(obj, null, 2);
+            return raw.replace(
+                /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g,
+                (match) => {
+                    let cls = 'json-num';
+                    if (/^"/.test(match)) {
+                        cls = /:$/.test(match) ? 'json-key' : 'json-str';
+                    } else if (/true|false/.test(match)) {
+                        cls = 'json-bool';
+                    } else {
+                        cls = 'json-null';
+                    }
+                    return `<span class="${cls}">${escapeHtml(match)}</span>`;
+                }
+            );
+        }
+
+        function renderDetail(lineIdx) {
+            if (!indexer || lineIdx < 0) { detailPanel.style.display = 'none'; return; }
+            const line = indexer.get_line(lineIdx) ?? '';
+            const lv = indexer.get_line_level(lineIdx);
+            const name = LEVEL_NAMES[lv];
+
+            detailLn.textContent = `Line ${lineIdx + 1}`;
+            detailBadge.textContent = name.toUpperCase();
+            detailBadge.className = `detail-badge ${name}`;
+
+            const raw = escapeHtml(line);
+            detailRaw.innerHTML = raw;
+
+            detailCopy.classList.remove('copied');
+            detailCopyText.textContent = 'Copy';
+
+            let jsonObj = null;
+            try { jsonObj = JSON.parse(line); } catch (_) {}
+            if (jsonObj !== null && typeof jsonObj === 'object') {
+                detailJsonWrap.style.display = 'block';
+                detailJsonWrap.innerHTML =
+                    `<button class="detail-json-toggle" id="jsonToggle"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> <span>JSON</span></button>` +
+                    `<pre id="detailJsonPre" style="display:none;">${syntaxHighlightJson(jsonObj)}</pre>`;
+                const toggle = document.getElementById('jsonToggle');
+                const pre = document.getElementById('detailJsonPre');
+                toggle.addEventListener('click', () => {
+                    const open = pre.style.display === 'none';
+                    pre.style.display = open ? 'block' : 'none';
+                    toggle.classList.toggle('open', open);
+                });
+            } else {
+                detailJsonWrap.style.display = 'none';
+                detailJsonWrap.innerHTML = '';
+            }
+
+            detailPanel.style.display = 'block';
+        }
+
+        function hideDetail() {
+            detailPanel.style.display = 'none';
+        }
+
+        function getLineIndexFromEl(el) {
+            const lineEl = el.closest('.log-line');
+            if (!lineEl) return -1;
+            const lines = getVisibleLines();
+            return Array.from(lines).indexOf(lineEl);
         }
 
         function loadFile(file) {
@@ -690,6 +972,7 @@
                 activeLevels = new Set(['error', 'warn', 'info', 'debug', 'none']);
                 document.querySelectorAll('.level-chip').forEach(c => c.classList.add('on'));
                 selectedLine = -1;
+                hideDetail();
 
                 if (totalLines === 0) {
                     logContainer.innerHTML = `<div class="empty-state">No lines found</div>`;
@@ -723,6 +1006,12 @@
                 lines[index].scrollIntoView({ block: 'nearest' });
             }
             selectedLine = index;
+            if (detailPanel.style.display === 'block' && index >= 0) {
+                const globalIdx = filteredIndices
+                    ? filteredIndices[(currentPage - 1) * PAGE_SIZE + index]
+                    : (currentPage - 1) * PAGE_SIZE + index;
+                renderDetail(globalIdx);
+            }
         }
 
         document.addEventListener('keydown', (e) => {
@@ -776,8 +1065,18 @@
                     searchInput.value = '';
                     searchQuery = '';
                     selectedLine = -1;
+                    hideDetail();
                     rebuildFiltered();
                     renderVirtual();
+                    break;
+                case 'Enter':
+                    e.preventDefault();
+                    if (selectedLine >= 0) {
+                        const globalIdx = filteredIndices
+                            ? filteredIndices[(currentPage - 1) * PAGE_SIZE + selectedLine]
+                            : (currentPage - 1) * PAGE_SIZE + selectedLine;
+                        renderDetail(globalIdx);
+                    }
                     break;
             }
         });
