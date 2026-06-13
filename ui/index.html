@@ -71,6 +71,60 @@
         .pagination .page-info {
             color: #6b7280;
         }
+
+        .search-bar {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            background: #090b0f;
+            color: #e4e6eb;
+            border: 1px solid #2d3139;
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-family: monospace;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .search-bar input:focus {
+            border-color: #4af626;
+        }
+
+        .search-bar input::placeholder {
+            color: #4b5563;
+        }
+
+        .search-bar button {
+            background: #2d3139;
+            color: #e4e6eb;
+            border: 1px solid #3d4149;
+            border-radius: 4px;
+            padding: 6px 14px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .search-bar button:hover {
+            background: #3d4149;
+        }
+
+        .search-stats {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #6b7280;
+            font-family: sans-serif;
+        }
+
+        #output mark {
+            background: #854d0e;
+            color: #fef3c7;
+            border-radius: 2px;
+            padding: 0 1px;
+        }
     </style>
 </head>
 
@@ -81,6 +135,12 @@
         <p>Upload a log file to test the internal engine processing:</p>
 
         <input type="file" id="fileInput" />
+
+        <div class="search-bar" id="searchBar" style="display: none;">
+            <input type="text" id="searchInput" placeholder="Search lines..." />
+            <button id="clearSearch">Clear</button>
+        </div>
+        <div class="search-stats" id="searchStats"></div>
 
         <h3>Engine State:</h3>
         <div id="output">Initializing...</div>
@@ -101,28 +161,77 @@
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const pageInfo = document.getElementById('pageInfo');
+        const searchBar = document.getElementById('searchBar');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearchBtn = document.getElementById('clearSearch');
+        const searchStats = document.getElementById('searchStats');
 
         const PAGE_SIZE = 20;
         let indexer = null;
         let totalLines = 0;
-        let totalPages = 0;
         let currentPage = 1;
+        let filteredIndices = null;
+        let searchQuery = '';
+
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function highlightMatch(text, query) {
+            if (!query) return escapeHtml(text);
+            const escaped = escapeHtml(text);
+            const re = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+            return escaped.replace(re, (m) => `<mark>${m}</mark>`);
+        }
+
+        function rebuildFiltered() {
+            if (!searchQuery || !indexer) {
+                filteredIndices = null;
+                return;
+            }
+            const re = new RegExp(searchQuery, 'i');
+            filteredIndices = [];
+            for (let i = 0; i < totalLines; i++) {
+                const line = indexer.get_line(i);
+                if (line && re.test(line)) filteredIndices.push(i);
+            }
+        }
 
         function renderPage() {
+            const indices = filteredIndices || null;
+            const count = indices ? indices.length : totalLines;
+            const totalPages = Math.max(1, Math.ceil(count / PAGE_SIZE));
+
+            if (currentPage > totalPages) currentPage = totalPages;
+
             const start = (currentPage - 1) * PAGE_SIZE;
-            const end = Math.min(start + PAGE_SIZE, totalLines);
+            const end = Math.min(start + PAGE_SIZE, count);
             const lines = [];
 
             for (let i = start; i < end; i++) {
-                const line = indexer.get_line(i);
-                const prefix = String(i + 1).padStart(6, ' ') + ' | ';
-                lines.push(prefix + (line ?? ''));
+                const lineIdx = indices ? indices[i] : i;
+                const line = indexer.get_line(lineIdx);
+                const lineNum = String(lineIdx + 1).padStart(6, ' ');
+                const prefix = lineNum + ' | ';
+                lines.push(prefix + highlightMatch(line ?? '', searchQuery));
             }
 
-            output.innerText = lines.join('\n');
+            output.innerHTML = lines.length > 0
+                ? lines.join('\n')
+                : 'No matching lines.';
+
             pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
             prevBtn.disabled = currentPage <= 1;
             nextBtn.disabled = currentPage >= totalPages;
+
+            if (searchQuery) {
+                searchStats.textContent = `${count.toLocaleString()} of ${totalLines.toLocaleString()} lines match`;
+            } else {
+                searchStats.textContent = '';
+            }
         }
 
         prevBtn.addEventListener('click', () => {
@@ -133,10 +242,28 @@
         });
 
         nextBtn.addEventListener('click', () => {
-            if (currentPage < totalPages) {
-                currentPage++;
+            currentPage++;
+            renderPage();
+        });
+
+        let searchTimeout = null;
+        searchInput.addEventListener('input', () => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                searchQuery = searchInput.value.trim();
+                currentPage = 1;
+                rebuildFiltered();
                 renderPage();
-            }
+            }, 200);
+        });
+
+        clearSearchBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            searchQuery = '';
+            filteredIndices = null;
+            currentPage = 1;
+            searchStats.textContent = '';
+            renderPage();
         });
 
         async function start() {
@@ -150,6 +277,8 @@
 
                     output.innerText = `Streaming ${file.name}...`;
                     pagination.style.display = 'none';
+                    searchBar.style.display = 'none';
+                    searchStats.textContent = '';
 
                     const reader = new FileReader();
                     reader.onload = async (e) => {
@@ -161,8 +290,10 @@
 
                         totalLines = indexer.total_lines();
                         const totalErrors = indexer.total_errors();
-                        totalPages = Math.max(1, Math.ceil(totalLines / PAGE_SIZE));
                         currentPage = 1;
+                        filteredIndices = null;
+                        searchQuery = '';
+                        searchInput.value = '';
 
                         if (totalLines === 0) {
                             output.innerText = 'No lines found in file.';
@@ -170,9 +301,10 @@
                         }
 
                         pagination.style.display = 'flex';
+                        searchBar.style.display = 'flex';
                         renderPage();
 
-                        console.log(`Loaded: ${totalLines.toLocaleString()} lines, ${totalErrors.toLocaleString()} errors, ${totalPages} pages`);
+                        console.log(`Loaded: ${totalLines.toLocaleString()} lines, ${totalErrors.toLocaleString()} errors`);
                     };
                     reader.readAsArrayBuffer(file);
                 });
