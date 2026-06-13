@@ -442,6 +442,14 @@
                 <input type="text" id="searchInput" placeholder="Search..." />
             </div>
             <button class="btn" id="clearSearch">Clear</button>
+            <button class="btn" id="exportBtn" style="display: none;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -1px; margin-right: 4px;">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Export
+            </button>
         </div>
 
         <div class="level-bar" id="levelBar" style="display: none;">
@@ -504,6 +512,8 @@
         const sFiltered = document.getElementById('sFiltered');
         const fileBadge = document.getElementById('fileBadge');
         const fileNameEl = document.getElementById('fileName');
+        const shortcuts = document.getElementById('shortcuts');
+        const exportBtn = document.getElementById('exportBtn');
 
         const PAGE_SIZE = 100;
 
@@ -613,8 +623,27 @@
             searchInput.value = '';
             searchQuery = '';
             currentPage = 1;
+            selectedLine = -1;
             rebuildFiltered();
             renderVirtual();
+        });
+
+        exportBtn.addEventListener('click', () => {
+            if (!indexer) return;
+            const count = getCount();
+            const lines = [];
+            for (let i = 0; i < count; i++) {
+                const idx = filteredIndices ? filteredIndices[i] : i;
+                const line = indexer.get_line(idx);
+                if (line != null) lines.push(line);
+            }
+            const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName.replace(/\.[^.]+$/, '') + '-filtered.log';
+            a.click();
+            URL.revokeObjectURL(url);
         });
 
         document.querySelectorAll('.level-chip').forEach(chip => {
@@ -642,6 +671,7 @@
             toolbar.style.display = 'flex';
             fileNameEl.textContent = fileName;
             fileBadge.style.display = 'inline-flex';
+            exportBtn.style.display = 'inline-flex';
             logContainer.innerHTML = `<div class="empty-state">Indexing ${escapeHtml(fileName)}...</div>`;
 
             const reader = new FileReader();
@@ -678,7 +708,7 @@
             reader.readAsArrayBuffer(file);
         }
 
-        const shortcuts = document.getElementById('shortcuts');
+
         let selectedLine = -1;
 
         function getVisibleLines() {
@@ -752,13 +782,24 @@
             }
         });
 
-        dropZone.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('click', (e) => {
+            if (e.target === fileInput) return;
+            fileInput.click();
+        });
         fileInput.addEventListener('change', (e) => { if (e.target.files[0]) loadFile(e.target.files[0]); });
         dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
         dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
         dropZone.addEventListener('drop', (e) => { e.preventDefault(); dropZone.classList.remove('dragover'); if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]); });
 
-        init();
+        init().catch(err => {
+            console.error('Wasm init failed:', err);
+            logContainer.innerHTML = `<div class="empty-state">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+                </svg>
+                <span>Failed to load Wasm engine</span>
+            </div>`;
+        });
     </script>
 </body>
 
