@@ -31,13 +31,23 @@ Cannot use `file://` due to Wasm module loading restrictions.
 
 | Method | Returns | Description |
 |--------|---------|-------------|
-| `new(data: Vec<u8>)` | constructor | Indexes line offsets and detects levels |
+| `new(data: Vec<u8>)` | constructor | Indexes line offsets, detects levels and timestamps |
 | `total_lines()` | `usize` | Total number of lines |
 | `total_errors()` | `usize` | Lines containing ERROR |
-| `get_line(i)` | `Option<String>` | Line content at index |
+| `get_line(i)` | `Option<String>` | Line content at index (UTF-8, \r stripped) |
 | `get_line_level(i)` | `u8` | Level: 0=NONE, 1=DEBUG, 2=INFO, 3=WARN, 4=ERROR |
-| `count_by_level(level)` | `usize` | Count of lines at a given level |
+| `get_line_timestamp(i)` | `f64` | Unix epoch seconds, or -1.0 if no timestamp detected |
+| `count_by_level(level)` | `usize` | Count of lines at a given level (precomputed) |
 
 ## Level detection
 
-Case-insensitive matching against: `ERROR`/`ERRO`, `WARN`, `INFO`, `DEBUG`/`DBG`. Priority: ERROR > WARN > INFO > DEBUG > NONE. Handles trailing lines without a newline terminator.
+Word-boundary, case-insensitive matching against: `ERROR`/`ERRO`, `WARN`, `INFO`, `DEBUG`/`DBG`. Priority: ERROR > WARN > INFO > DEBUG > NONE. Handles `\r\n` Windows line endings and trailing lines without a newline terminator.
+
+## Timestamp detection
+
+Parses the first bytes of each line for:
+- **ISO 8601**: `2025-01-15T10:30:00Z`, `2025-01-15 10:30:00+05:30`
+- **Common log format**: `15/Jan/2025:10:30:00 +0000`
+- **Unix timestamps**: 10-digit (seconds) or 13-digit (milliseconds)
+
+Returns epoch seconds as `f64`, or -1.0 if no timestamp detected.

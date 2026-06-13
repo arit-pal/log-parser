@@ -5,12 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log Parser — Wasm Engine</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2358a6ff'/%3E%3Cstop offset='100%25' stop-color='%23bc8cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M10 7h8l4 4v14a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M18 7v4h4' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='12' y1='16' x2='20' y2='16' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='12' y1='20' x2='18' y2='20' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2358a6ff'/%3E%3Cstop offset='100%25' stop-color='%23bc8cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M10 7h8l4 4v14a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M18 7v4h4' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='12' y1='16' x2='20' y2='16' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='12' y1='20' x2='18' y2='20' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E" />
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        :root {
+            --lc-error: #f85149;
+            --lc-warn: #d29922;
+            --lc-info: #58a6ff;
+            --lc-debug: #bc8cff;
+            --lc-none: #8b949e;
         }
 
         body {
@@ -227,20 +237,50 @@
             transition: background 0.15s;
         }
 
-        .level-chip.on[data-level="error"] { color: #f85149; border-color: #5c2020; }
-        .level-chip.on[data-level="error"] .dot { background: #f85149; }
+        .level-chip.on[data-level="error"] {
+            color: #f85149;
+            border-color: #5c2020;
+        }
 
-        .level-chip.on[data-level="warn"] { color: #d29922; border-color: #5c4a10; }
-        .level-chip.on[data-level="warn"] .dot { background: #d29922; }
+        .level-chip.on[data-level="error"] .dot {
+            background: #f85149;
+        }
 
-        .level-chip.on[data-level="info"] { color: #58a6ff; border-color: #1a3a5c; }
-        .level-chip.on[data-level="info"] .dot { background: #58a6ff; }
+        .level-chip.on[data-level="warn"] {
+            color: #d29922;
+            border-color: #5c4a10;
+        }
 
-        .level-chip.on[data-level="debug"] { color: #bc8cff; border-color: #3b2660; }
-        .level-chip.on[data-level="debug"] .dot { background: #bc8cff; }
+        .level-chip.on[data-level="warn"] .dot {
+            background: #d29922;
+        }
 
-        .level-chip.on[data-level="none"] { color: #8b949e; border-color: #30363d; }
-        .level-chip.on[data-level="none"] .dot { background: #8b949e; }
+        .level-chip.on[data-level="info"] {
+            color: #58a6ff;
+            border-color: #1a3a5c;
+        }
+
+        .level-chip.on[data-level="info"] .dot {
+            background: #58a6ff;
+        }
+
+        .level-chip.on[data-level="debug"] {
+            color: #bc8cff;
+            border-color: #3b2660;
+        }
+
+        .level-chip.on[data-level="debug"] .dot {
+            background: #bc8cff;
+        }
+
+        .level-chip.on[data-level="none"] {
+            color: #8b949e;
+            border-color: #30363d;
+        }
+
+        .level-chip.on[data-level="none"] .dot {
+            background: #8b949e;
+        }
 
         .level-chip .n {
             opacity: 0.5;
@@ -313,11 +353,25 @@
             flex-shrink: 0;
         }
 
-        .ll-error { color: #f85149; }
-        .ll-warn  { color: #d29922; }
-        .ll-info  { color: #58a6ff; }
-        .ll-debug { color: #bc8cff; }
-        .ll-none  { color: #8b949e; }
+        .ll-error {
+            color: #f85149;
+        }
+
+        .ll-warn {
+            color: #d29922;
+        }
+
+        .ll-info {
+            color: #58a6ff;
+        }
+
+        .ll-debug {
+            color: #bc8cff;
+        }
+
+        .ll-none {
+            color: #8b949e;
+        }
 
         mark {
             background: #5c3d0a;
@@ -436,13 +490,34 @@
             text-transform: uppercase;
         }
 
-        .detail-badge.error { background: #5c2020; color: #f85149; }
-        .detail-badge.warn  { background: #5c4a10; color: #d29922; }
-        .detail-badge.info  { background: #1a3a5c; color: #58a6ff; }
-        .detail-badge.debug { background: #3b2660; color: #bc8cff; }
-        .detail-badge.none  { background: #30363d; color: #8b949e; }
+        .detail-badge.error {
+            background: #5c2020;
+            color: #f85149;
+        }
 
-        .detail-header .spacer { flex: 1; }
+        .detail-badge.warn {
+            background: #5c4a10;
+            color: #d29922;
+        }
+
+        .detail-badge.info {
+            background: #1a3a5c;
+            color: #58a6ff;
+        }
+
+        .detail-badge.debug {
+            background: #3b2660;
+            color: #bc8cff;
+        }
+
+        .detail-badge.none {
+            background: #30363d;
+            color: #8b949e;
+        }
+
+        .detail-header .spacer {
+            flex: 1;
+        }
 
         .detail-btn {
             background: #161b22;
@@ -546,13 +621,310 @@
             overflow-y: auto;
         }
 
-        .json-key   { color: #7ee787; }
-        .json-str   { color: #a5d6ff; }
-        .json-num   { color: #79c0ff; }
-        .json-bool  { color: #ff7b72; }
-        .json-null  { color: #8b949e; }
-        .json-brace { color: #8b949e; }
-        .json-punct { color: #6e7681; }
+        .json-key {
+            color: #7ee787;
+        }
+
+        .json-str {
+            color: #a5d6ff;
+        }
+
+        .json-num {
+            color: #79c0ff;
+        }
+
+        .json-bool {
+            color: #ff7b72;
+        }
+
+        .json-null {
+            color: #8b949e;
+        }
+
+        .json-brace {
+            color: #8b949e;
+        }
+
+        .json-punct {
+            color: #6e7681;
+        }
+
+        .metrics {
+            display: none;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .metrics.visible {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .chart-card {
+            background: #0d1117;
+            border: 1px solid #21262d;
+            border-radius: 10px;
+            padding: 14px;
+        }
+
+        .chart-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: #8b949e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .bar-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+        }
+
+        .bar-label {
+            width: 44px;
+            text-align: right;
+            font-weight: 500;
+            font-size: 10px;
+            letter-spacing: 0.3px;
+            flex-shrink: 0;
+        }
+
+        .bar-track {
+            flex: 1;
+            height: 16px;
+            background: #161b22;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            min-width: 2px;
+        }
+
+        .bar-fill.error {
+            background: linear-gradient(90deg, #f85149, #da3633);
+        }
+
+        .bar-fill.warn {
+            background: linear-gradient(90deg, #d29922, #e3b341);
+        }
+
+        .bar-fill.info {
+            background: linear-gradient(90deg, #58a6ff, #79c0ff);
+        }
+
+        .bar-fill.debug {
+            background: linear-gradient(90deg, #bc8cff, #d2a8ff);
+        }
+
+        .bar-fill.none {
+            background: linear-gradient(90deg, #6e7681, #8b949e);
+        }
+
+        .bar-count {
+            width: 50px;
+            font-size: 11px;
+            color: #6e7681;
+            font-family: 'SF Mono', monospace;
+        }
+
+        .time-chart-svg {
+            width: 100%;
+            height: 100px;
+        }
+
+        .time-chart-empty {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #30363d;
+            font-size: 12px;
+        }
+
+        @media (max-width: 640px) {
+            .metrics.visible {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .time-sep {
+            width: 1px;
+            height: 16px;
+            background: #21262d;
+            margin: 0 4px;
+        }
+
+        .time-dash {
+            color: #484f58;
+            font-size: 12px;
+            margin: 0 2px;
+        }
+
+        .time-input {
+            background: #161b22;
+            color: #c9d1d9;
+            border: 1px solid #21262d;
+            border-radius: 6px;
+            padding: 5px 8px;
+            font-size: 11px;
+            font-family: 'SF Mono', monospace;
+            outline: none;
+            width: 150px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .time-input:hover {
+            border-color: #363b42;
+        }
+
+        .time-input:focus {
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 2px rgba(56, 166, 255, 0.15);
+        }
+
+        .flatpickr-calendar {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .flatpickr-months {
+            padding: 8px 4px 4px;
+        }
+
+        .flatpickr-months .flatpickr-month {
+            color: #c9d1d9;
+            fill: #c9d1d9;
+            height: 28px;
+        }
+
+        .flatpickr-current-month {
+            color: #e1e4e8;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .flatpickr-current-month input {
+            color: #e1e4e8;
+        }
+
+        .flatpickr-weekday {
+            color: #6e7681;
+            font-weight: 500;
+            font-size: 11px;
+        }
+
+        .flatpickr-day {
+            color: #c9d1d9;
+            border-radius: 6px;
+            font-size: 12px;
+            height: 32px;
+            line-height: 32px;
+            border: none;
+        }
+
+        .flatpickr-day:hover {
+            background: #21262d;
+            border-color: #21262d;
+        }
+
+        .flatpickr-day.selected,
+        .flatpickr-day.selected:hover {
+            background: #58a6ff;
+            border-color: #58a6ff;
+            color: #fff;
+        }
+
+        .flatpickr-day.today {
+            border-color: #30363d;
+        }
+
+        .flatpickr-day.today:hover {
+            background: #21262d;
+        }
+
+        .flatpickr-day.inRange {
+            background: rgba(56, 166, 255, 0.12);
+            box-shadow: none;
+            border-color: transparent;
+        }
+
+        span.flatpickr-weekday {
+            color: #6e7681;
+        }
+
+        .flatpickr-months .flatpickr-prev-month,
+        .flatpickr-months .flatpickr-next-month {
+            fill: #8b949e;
+        }
+
+        .flatpickr-months .flatpickr-prev-month:hover,
+        .flatpickr-months .flatpickr-next-month:hover {
+            fill: #c9d1d9;
+        }
+
+        .flatpickr-time {
+            border-top: 1px solid #30363d;
+        }
+
+        .flatpickr-time input {
+            color: #c9d1d9;
+            font-weight: 500;
+        }
+
+        .flatpickr-time .flatpickr-am-pm {
+            color: #8b949e;
+        }
+
+        .flatpickr-time .numInputWrapper:hover {
+            background: #21262d;
+            border-radius: 4px;
+        }
+
+        .flatpickr-time .numInputWrapper span.arrowUp,
+        .flatpickr-time .numInputWrapper span.arrowDown {
+            fill: #8b949e;
+        }
+
+        .flatpickr-time .numInputWrapper span.arrowUp:hover,
+        .flatpickr-time .numInputWrapper span.arrowDown:hover {
+            fill: #c9d1d9;
+        }
+
+        .flatpickr-day.flatpickr-disabled,
+        .flatpickr-day.flatpickr-disabled:hover {
+            color: #30363d;
+        }
+
+        .flatpickr-day.prevMonthDay,
+        .flatpickr-day.nextMonthDay {
+            color: #30363d;
+        }
+
+        .dayContainer {
+            min-width: 280px;
+            max-width: 280px;
+        }
+
+        span.flatpickr-weekday {
+            font-size: 10px;
+        }
     </style>
 </head>
 
@@ -560,17 +932,21 @@
     <div class="app">
         <header>
             <div class="logo">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <polyline points="14 2 14 8 20 8"/>
-                    <line x1="16" y1="13" x2="8" y2="13"/>
-                    <line x1="16" y1="17" x2="8" y2="17"/>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
                 </svg>
             </div>
             <div>
                 <h1>log-parser <span>/ wasm engine</span></h1>
                 <div class="file-badge" id="fileBadge" style="display: none;">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                    </svg>
                     <strong id="fileName"></strong>
                 </div>
             </div>
@@ -578,12 +954,13 @@
 
         <div class="drop-zone" id="dropZone">
             <div class="icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <polyline points="14 2 14 8 20 8"/>
-                    <line x1="16" y1="13" x2="8" y2="13"/>
-                    <line x1="16" y1="17" x2="8" y2="17"/>
-                    <polyline points="10 9 9 9 8 9"/>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
                 </svg>
             </div>
             <span class="label">Drop a log file here</span>
@@ -594,27 +971,39 @@
         <div class="toolbar" id="toolbar" style="display: none;">
             <div class="search-box">
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
-                    <path d="M11.5 7a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-.82 4.74a6 6 0 1 1 1.06-1.06l3.04 3.04a.75.75 0 1 1-1.06 1.06l-3.04-3.04Z"/>
+                    <path
+                        d="M11.5 7a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-.82 4.74a6 6 0 1 1 1.06-1.06l3.04 3.04a.75.75 0 1 1-1.06 1.06l-3.04-3.04Z" />
                 </svg>
                 <input type="text" id="searchInput" placeholder="Search..." />
             </div>
             <button class="btn" id="clearSearch">Clear</button>
             <button class="btn" id="exportBtn" style="display: none;">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -1px; margin-right: 4px;">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <polyline points="7 10 12 15 17 10"/>
-                    <line x1="12" y1="15" x2="12" y2="3"/>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -1px; margin-right: 4px;">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
                 Export
             </button>
         </div>
 
         <div class="level-bar" id="levelBar" style="display: none;">
-            <button class="level-chip on" data-level="error">ERROR <span class="dot"></span><span class="n" id="nError"></span></button>
-            <button class="level-chip on" data-level="warn">WARN <span class="dot"></span><span class="n" id="nWarn"></span></button>
-            <button class="level-chip on" data-level="info">INFO <span class="dot"></span><span class="n" id="nInfo"></span></button>
-            <button class="level-chip on" data-level="debug">DEBUG <span class="dot"></span><span class="n" id="nDebug"></span></button>
-            <button class="level-chip on" data-level="none">OTHER <span class="dot"></span><span class="n" id="nNone"></span></button>
+            <button class="level-chip on" data-level="error">ERROR <span class="dot"></span><span class="n"
+                    id="nError"></span></button>
+            <button class="level-chip on" data-level="warn">WARN <span class="dot"></span><span class="n"
+                    id="nWarn"></span></button>
+            <button class="level-chip on" data-level="info">INFO <span class="dot"></span><span class="n"
+                    id="nInfo"></span></button>
+            <button class="level-chip on" data-level="debug">DEBUG <span class="dot"></span><span class="n"
+                    id="nDebug"></span></button>
+            <button class="level-chip on" data-level="none">OTHER <span class="dot"></span><span class="n"
+                    id="nNone"></span></button>
+            <span class="time-sep"></span>
+            <input type="text" id="timeStart" class="time-input" placeholder="Start..." readonly />
+            <span class="time-dash">—</span>
+            <input type="text" id="timeEnd" class="time-input" placeholder="End..." readonly />
+            <button class="btn" id="clearTime" style="display: none;">Clear time</button>
         </div>
 
         <div class="stats" id="stats" style="display: none;">
@@ -623,14 +1012,26 @@
             <span><strong id="sFiltered"></strong> shown</span>
         </div>
 
+        <div class="metrics" id="metrics">
+            <div class="chart-card">
+                <div class="chart-title">Level Distribution</div>
+                <div class="bar-chart" id="levelChart"></div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title">Errors Over Time</div>
+                <div id="timeChart"></div>
+            </div>
+        </div>
+
         <div id="logContainer">
             <div class="empty-state">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <polyline points="14 2 14 8 20 8"/>
-                    <line x1="16" y1="13" x2="8" y2="13"/>
-                    <line x1="16" y1="17" x2="8" y2="17"/>
-                    <polyline points="10 9 9 9 8 9"/>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
                 </svg>
                 <span>Drop a log file or click above to begin</span>
             </div>
@@ -642,11 +1043,19 @@
                 <span class="detail-badge" id="detailBadge"></span>
                 <span class="spacer"></span>
                 <button class="detail-btn" id="detailCopy">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                    </svg>
                     <span id="detailCopyText">Copy</span>
                 </button>
                 <button class="detail-close" id="detailClose" title="Close (Esc)">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
                 </button>
             </div>
             <div class="detail-raw" id="detailRaw"></div>
@@ -667,6 +1076,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script type="module">
         import init, { LogIndexer } from '../pkg/log_parser.js';
 
@@ -689,6 +1099,9 @@
         const fileNameEl = document.getElementById('fileName');
         const shortcuts = document.getElementById('shortcuts');
         const exportBtn = document.getElementById('exportBtn');
+        const timeStart = document.getElementById('timeStart');
+        const timeEnd = document.getElementById('timeEnd');
+        const clearTimeBtn = document.getElementById('clearTime');
         const detailPanel = document.getElementById('detailPanel');
         const detailLn = document.getElementById('detailLn');
         const detailBadge = document.getElementById('detailBadge');
@@ -707,6 +1120,9 @@
         let searchQuery = '';
         let activeLevels = new Set(['error', 'warn', 'info', 'debug', 'none']);
         let fileName = '';
+        let timeRangeStart = null;
+        let timeRangeEnd = null;
+        let selectedLine = -1;
 
         function escapeHtml(t) {
             return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -723,7 +1139,8 @@
             if (!indexer) return;
             const hasSearch = searchQuery.length > 0;
             const allActive = activeLevels.size === 5;
-            if (!hasSearch && allActive) { filteredIndices = null; return; }
+            const hasTime = timeRangeStart !== null || timeRangeEnd !== null;
+            if (!hasSearch && allActive && !hasTime) { filteredIndices = null; return; }
             const re = hasSearch ? new RegExp(searchQuery, 'i') : null;
             filteredIndices = [];
             for (let i = 0; i < totalLines; i++) {
@@ -731,6 +1148,12 @@
                     const lv = indexer.get_line_level(i);
                     const name = ['none', 'debug', 'info', 'warn', 'error'][lv];
                     if (!activeLevels.has(name)) continue;
+                }
+                if (hasTime) {
+                    const ts = indexer.get_line_timestamp(i);
+                    if (ts < 0) continue;
+                    if (timeRangeStart !== null && ts < timeRangeStart) continue;
+                    if (timeRangeEnd !== null && ts > timeRangeEnd) continue;
                 }
                 if (re) {
                     const line = indexer.get_line(i);
@@ -780,7 +1203,7 @@
             nextBtn.disabled = currentPage >= totalPages;
             pagination.style.display = 'flex';
 
-            if (searchQuery || activeLevels.size < 5) {
+            if (searchQuery || activeLevels.size < 5 || timeRangeStart !== null || timeRangeEnd !== null) {
                 sFiltered.textContent = count.toLocaleString();
                 stats.style.display = 'flex';
             } else {
@@ -805,6 +1228,11 @@
         clearSearchBtn.addEventListener('click', () => {
             searchInput.value = '';
             searchQuery = '';
+            fpStart.clear();
+            fpEnd.clear();
+            timeRangeStart = null;
+            timeRangeEnd = null;
+            clearTimeBtn.style.display = 'none';
             currentPage = 1;
             selectedLine = -1;
             hideDetail();
@@ -839,6 +1267,45 @@
                 rebuildFiltered();
                 renderVirtual();
             });
+        });
+
+        function parseTimeInput(val) {
+            if (!val) return null;
+            return new Date(val).getTime() / 1000;
+        }
+
+        function applyTimeFilter() {
+            timeRangeStart = parseTimeInput(timeStart.value);
+            timeRangeEnd = parseTimeInput(timeEnd.value);
+            clearTimeBtn.style.display = (timeRangeStart !== null || timeRangeEnd !== null) ? 'inline-flex' : 'none';
+            currentPage = 1;
+            rebuildFiltered();
+            renderVirtual();
+            renderTimeChart();
+        }
+
+        const fpCommon = {
+            enableTime: true,
+            dateFormat: 'Y-m-d H:i',
+            time_24hr: true,
+            minuteIncrement: 1,
+            theme: 'dark',
+        };
+
+        const fpStart = flatpickr(timeStart, {
+            ...fpCommon,
+            onChange: () => applyTimeFilter(),
+        });
+
+        const fpEnd = flatpickr(timeEnd, {
+            ...fpCommon,
+            onChange: () => applyTimeFilter(),
+        });
+
+        clearTimeBtn.addEventListener('click', () => {
+            fpStart.clear();
+            fpEnd.clear();
+            applyTimeFilter();
         });
 
         logContainer.addEventListener('click', (e) => {
@@ -916,7 +1383,7 @@
             detailCopyText.textContent = 'Copy';
 
             let jsonObj = null;
-            try { jsonObj = JSON.parse(line); } catch (_) {}
+            try { jsonObj = JSON.parse(line); } catch (_) { }
             if (jsonObj !== null && typeof jsonObj === 'object') {
                 detailJsonWrap.style.display = 'block';
                 detailJsonWrap.innerHTML =
@@ -941,11 +1408,128 @@
             detailPanel.style.display = 'none';
         }
 
-        function getLineIndexFromEl(el) {
-            const lineEl = el.closest('.log-line');
-            if (!lineEl) return -1;
-            const lines = getVisibleLines();
-            return Array.from(lines).indexOf(lineEl);
+        const metricsEl = document.getElementById('metrics');
+        const levelChartEl = document.getElementById('levelChart');
+        const timeChartEl = document.getElementById('timeChart');
+
+        function renderLevelChart() {
+            if (!indexer) return;
+            const levels = [
+                { name: 'ERROR', cls: 'error', count: indexer.count_by_level(4) },
+                { name: 'WARN', cls: 'warn', count: indexer.count_by_level(3) },
+                { name: 'INFO', cls: 'info', count: indexer.count_by_level(2) },
+                { name: 'DEBUG', cls: 'debug', count: indexer.count_by_level(1) },
+                { name: 'OTHER', cls: 'none', count: indexer.count_by_level(0) },
+            ];
+            const maxCount = Math.max(...levels.map(l => l.count), 1);
+
+            levelChartEl.innerHTML = levels.map(l => {
+                const pct = (l.count / maxCount * 100).toFixed(1);
+                const label = l.count > 0 ? l.count.toLocaleString() : '';
+                return `<div class="bar-row">
+                    <span class="bar-label" style="color: var(--lc-${l.cls})">${l.name}</span>
+                    <div class="bar-track"><div class="bar-fill ${l.cls}" style="width: ${pct}%"></div></div>
+                    <span class="bar-count">${label}</span>
+                </div>`;
+            }).join('');
+        }
+
+        function renderTimeChart() {
+            if (!indexer) { timeChartEl.innerHTML = '<div class="time-chart-empty">No timestamp data</div>'; return; }
+
+            const errorTimestamps = [];
+            for (let i = 0; i < totalLines; i++) {
+                if (indexer.get_line_level(i) === 4) {
+                    const ts = indexer.get_line_timestamp(i);
+                    if (ts > 0) {
+                        if (timeRangeStart !== null && ts < timeRangeStart) continue;
+                        if (timeRangeEnd !== null && ts > timeRangeEnd) continue;
+                        errorTimestamps.push(ts);
+                    }
+                }
+            }
+
+            if (errorTimestamps.length === 0) {
+                timeChartEl.innerHTML = '<div class="time-chart-empty">No timestamps in error lines</div>';
+                return;
+            }
+
+            errorTimestamps.sort((a, b) => a - b);
+            const minTs = errorTimestamps[0];
+            const maxTs = errorTimestamps[errorTimestamps.length - 1];
+            const range = maxTs - minTs;
+
+            let bucketSize;
+            if (range <= 3600) bucketSize = 60;
+            else if (range <= 86400) bucketSize = 3600;
+            else bucketSize = 86400;
+
+            const buckets = new Map();
+            for (const ts of errorTimestamps) {
+                const key = Math.floor((ts - minTs) / bucketSize) * bucketSize + minTs;
+                buckets.set(key, (buckets.get(key) || 0) + 1);
+            }
+
+            const points = Array.from(buckets.entries()).sort((a, b) => a[0] - b[0]);
+            const maxBucket = Math.max(...points.map(p => p[1]), 1);
+
+            const W = 400, H = 80, PAD = 4;
+            const plotW = W - PAD * 2;
+            const plotH = H - PAD * 2;
+
+            const coords = points.map((p, i) => ({
+                x: points.length === 1 ? PAD + plotW / 2 : PAD + (i / (points.length - 1)) * plotW,
+                y: PAD + plotH - (p[1] / maxBucket) * plotH,
+                ts: p[0],
+                count: p[1],
+            }));
+
+            let pathD = `M ${coords[0].x} ${coords[0].y}`;
+            for (let i = 1; i < coords.length; i++) {
+                pathD += ` L ${coords[i].x} ${coords[i].y}`;
+            }
+
+            let areaD = pathD + ` L ${coords[coords.length - 1].x} ${H} L ${coords[0].x} ${H} Z`;
+
+            const formatTs = (ts) => {
+                const d = new Date(ts * 1000);
+                if (bucketSize <= 60) return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                if (bucketSize <= 3600) return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                return d.toLocaleDateString([], { month: 'short', day: 'numeric' });
+            };
+
+            const xLabels = points.length <= 6
+                ? points.map((p, i) => `<text x="${coords[i].x}" y="${H - 1}" text-anchor="middle" fill="#484f58" font-size="9" font-family="SF Mono,monospace">${formatTs(p[0])}</text>`).join('')
+                : [points[0], points[points.length - 1]].map((p, i) => {
+                    const idx = i === 0 ? 0 : points.length - 1;
+                    return `<text x="${coords[idx].x}" y="${H - 1}" text-anchor="${i === 0 ? 'start' : 'end'}" fill="#484f58" font-size="9" font-family="SF Mono,monospace">${formatTs(p[0])}</text>`;
+                }).join('');
+
+            const dots = coords.map(c =>
+                `<circle cx="${c.x}" cy="${c.y}" r="2.5" fill="#f85149" stroke="#0d1117" stroke-width="1" opacity="0">
+                    <title>${c.count} error${c.count > 1 ? 's' : ''} at ${formatTs(c.ts)}</title>
+                </circle>`
+            ).join('');
+
+            timeChartEl.innerHTML = `<svg class="time-chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+                <defs>
+                    <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#f85149" stop-opacity="0.3"/>
+                        <stop offset="100%" stop-color="#f85149" stop-opacity="0.02"/>
+                    </linearGradient>
+                </defs>
+                <path d="${areaD}" fill="url(#areaGrad)"/>
+                <path d="${pathD}" fill="none" stroke="#f85149" stroke-width="1.5" stroke-linejoin="round"/>
+                ${dots}
+                ${xLabels}
+            </svg>`;
+        }
+
+        function renderMetrics() {
+            if (!indexer) { metricsEl.classList.remove('visible'); return; }
+            metricsEl.classList.add('visible');
+            renderLevelChart();
+            renderTimeChart();
         }
 
         function loadFile(file) {
@@ -954,6 +1538,12 @@
             fileNameEl.textContent = fileName;
             fileBadge.style.display = 'inline-flex';
             exportBtn.style.display = 'inline-flex';
+            metricsEl.classList.remove('visible');
+            fpStart.clear();
+            fpEnd.clear();
+            timeRangeStart = null;
+            timeRangeEnd = null;
+            clearTimeBtn.style.display = 'none';
             logContainer.innerHTML = `<div class="empty-state">Indexing ${escapeHtml(fileName)}...</div>`;
 
             const reader = new FileReader();
@@ -976,6 +1566,10 @@
 
                 if (totalLines === 0) {
                     logContainer.innerHTML = `<div class="empty-state">No lines found</div>`;
+                    levelBar.style.display = 'none';
+                    stats.style.display = 'none';
+                    shortcuts.style.display = 'none';
+                    pagination.style.display = 'none';
                     return;
                 }
 
@@ -987,12 +1581,28 @@
                 shortcuts.style.display = 'flex';
                 updateCounts();
                 renderVirtual();
+                renderMetrics();
+
+                let minTs = Infinity, maxTs = -Infinity;
+                let hasTimestamps = false;
+                for (let i = 0; i < totalLines; i++) {
+                    const ts = indexer.get_line_timestamp(i);
+                    if (ts > 0) {
+                        hasTimestamps = true;
+                        if (ts < minTs) minTs = ts;
+                        if (ts > maxTs) maxTs = ts;
+                    }
+                }
+                if (hasTimestamps) {
+                    fpStart.setDate(new Date(minTs * 1000), true);
+                    fpEnd.setDate(new Date(maxTs * 1000), true);
+                    timeRangeStart = minTs;
+                    timeRangeEnd = maxTs;
+                }
             };
             reader.readAsArrayBuffer(file);
         }
 
-
-        let selectedLine = -1;
 
         function getVisibleLines() {
             return logContainer.querySelectorAll('.log-line');
