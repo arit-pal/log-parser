@@ -4,277 +4,509 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Wasm Parser</title>
+    <title>Log Parser — Wasm Engine</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2358a6ff'/%3E%3Cstop offset='100%25' stop-color='%23bc8cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M10 7h8l4 4v14a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M18 7v4h4' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='12' y1='16' x2='20' y2='16' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='12' y1='20' x2='18' y2='20' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E" />
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: sans-serif;
-            padding: 30px;
-            background: #0e1118;
-            color: #e4e6eb;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #e1e4e8;
+            min-height: 100vh;
         }
 
-        .box {
-            max-width: 600px;
-            margin: 40px auto;
-            background: #1c1f26;
-            padding: 25px;
-            border-radius: 8px;
-            border: 1px solid #2d3139;
+        .app {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 24px 20px;
         }
 
-        input[type="file"] {
-            margin: 20px 0;
+        header {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #58a6ff, #bc8cff);
+            flex-shrink: 0;
+        }
+
+        .logo svg {
+            color: #fff;
+        }
+
+        header h1 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #f0f0f0;
+            letter-spacing: -0.3px;
+        }
+
+        header h1 span {
+            color: #6e7681;
+            font-weight: 400;
+        }
+
+        .file-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #161b22;
+            border: 1px solid #21262d;
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 12px;
+            color: #8b949e;
+            margin-top: 8px;
+            font-family: 'SF Mono', monospace;
+        }
+
+        .file-badge strong {
+            color: #c9d1d9;
+            font-weight: 500;
+        }
+
+        .drop-zone {
+            border: 2px dashed #21262d;
+            border-radius: 12px;
+            padding: 28px 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, rgba(22, 27, 34, 0.5), rgba(13, 17, 23, 0.5));
+        }
+
+        .drop-zone:hover,
+        .drop-zone.dragover {
+            border-color: #58a6ff;
+            background: linear-gradient(135deg, rgba(56, 118, 200, 0.08), rgba(56, 118, 200, 0.03));
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(56, 118, 200, 0.08);
+        }
+
+        .drop-zone .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #161b22;
+            border: 1px solid #21262d;
+            margin-bottom: 10px;
+            color: #58a6ff;
+        }
+
+        .drop-zone .label {
             display: block;
-            color: #a3a7b0;
+            color: #e1e4e8;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
         }
 
-        #output {
-            background: #090b0f;
-            color: #4af626;
-            padding: 15px;
+        .drop-zone .hint {
+            color: #484f58;
+            font-size: 12px;
+        }
+
+        .drop-zone input {
+            display: none;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            background: #0d1117;
+            color: #e1e4e8;
+            border: 1px solid #21262d;
+            border-radius: 8px;
+            padding: 9px 12px 9px 34px;
+            font-size: 13px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 3px rgba(56, 166, 255, 0.1);
+        }
+
+        .search-box input::placeholder {
+            color: #484f58;
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #484f58;
+        }
+
+        .btn {
+            background: #161b22;
+            color: #c9d1d9;
+            border: 1px solid #21262d;
+            border-radius: 8px;
+            padding: 9px 14px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.15s, border-color 0.15s;
+        }
+
+        .btn:hover {
+            background: #1c2128;
+            border-color: #363b42;
+        }
+
+        .btn:active {
+            background: #21262d;
+        }
+
+        .level-bar {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .level-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #161b22;
+            color: #6e7681;
+            border: 1px solid #21262d;
+            border-radius: 20px;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.15s;
+        }
+
+        .level-chip .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #484f58;
+            transition: background 0.15s;
+        }
+
+        .level-chip.on[data-level="error"] { color: #f85149; border-color: #5c2020; }
+        .level-chip.on[data-level="error"] .dot { background: #f85149; }
+
+        .level-chip.on[data-level="warn"] { color: #d29922; border-color: #5c4a10; }
+        .level-chip.on[data-level="warn"] .dot { background: #d29922; }
+
+        .level-chip.on[data-level="info"] { color: #58a6ff; border-color: #1a3a5c; }
+        .level-chip.on[data-level="info"] .dot { background: #58a6ff; }
+
+        .level-chip.on[data-level="debug"] { color: #bc8cff; border-color: #3b2660; }
+        .level-chip.on[data-level="debug"] .dot { background: #bc8cff; }
+
+        .level-chip.on[data-level="none"] { color: #8b949e; border-color: #30363d; }
+        .level-chip.on[data-level="none"] .dot { background: #8b949e; }
+
+        .level-chip .n {
+            opacity: 0.5;
+            font-size: 10px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            color: #6e7681;
+        }
+
+        .stats span strong {
+            color: #c9d1d9;
+            font-weight: 600;
+        }
+
+        .scroll-wrap {
+            position: relative;
+            max-height: 520px;
+            overflow-y: auto;
+            border: 1px solid #21262d;
+            border-radius: 10px;
+            background: #0d1117;
+        }
+
+        .scroll-wrap::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .scroll-wrap::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .scroll-wrap::-webkit-scrollbar-thumb {
+            background: #21262d;
             border-radius: 4px;
-            font-family: monospace;
-            white-space: pre-wrap;
-            border: 1px solid #1a1d24;
-            min-height: 60px;
+        }
+
+        .scroll-wrap::-webkit-scrollbar-thumb:hover {
+            background: #30363d;
+        }
+
+        .log-line {
+            height: 22px;
+            line-height: 22px;
+            padding: 0 14px;
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 12px;
+            white-space: pre;
+            display: flex;
+        }
+
+        .log-line:nth-child(even) {
+            background: rgba(139, 148, 158, 0.03);
+        }
+
+        .log-line:hover {
+            background: rgba(56, 136, 255, 0.07);
+        }
+
+        .ln {
+            color: #484f58;
+            min-width: 50px;
+            text-align: right;
+            margin-right: 14px;
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .ll-error { color: #f85149; }
+        .ll-warn  { color: #d29922; }
+        .ll-info  { color: #58a6ff; }
+        .ll-debug { color: #bc8cff; }
+        .ll-none  { color: #8b949e; }
+
+        mark {
+            background: #5c3d0a;
+            color: #f0c75e;
+            border-radius: 2px;
+            padding: 0 1px;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 520px;
+            color: #30363d;
+            font-size: 13px;
+            gap: 8px;
+        }
+
+        .empty-state svg {
+            color: #21262d;
+            margin-bottom: 4px;
         }
 
         .pagination {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 12px;
-            margin-top: 15px;
-            font-family: sans-serif;
-            font-size: 14px;
-            color: #a3a7b0;
+            margin-top: 12px;
+            font-size: 12px;
+            color: #6e7681;
         }
 
         .pagination button {
-            background: #2d3139;
-            color: #e4e6eb;
-            border: 1px solid #3d4149;
-            border-radius: 4px;
-            padding: 6px 14px;
+            background: #161b22;
+            color: #c9d1d9;
+            border: 1px solid #21262d;
+            border-radius: 6px;
+            padding: 5px 12px;
+            font-size: 12px;
             cursor: pointer;
-            font-size: 13px;
+            transition: background 0.15s;
         }
 
         .pagination button:hover:not(:disabled) {
-            background: #3d4149;
+            background: #1c2128;
         }
 
         .pagination button:disabled {
-            opacity: 0.35;
+            opacity: 0.3;
             cursor: default;
-        }
-
-        .pagination .page-info {
-            color: #6b7280;
-        }
-
-        .search-bar {
-            display: flex;
-            gap: 8px;
-            margin-top: 15px;
-        }
-
-        .search-bar input {
-            flex: 1;
-            background: #090b0f;
-            color: #e4e6eb;
-            border: 1px solid #2d3139;
-            border-radius: 4px;
-            padding: 8px 12px;
-            font-family: monospace;
-            font-size: 13px;
-            outline: none;
-        }
-
-        .search-bar input:focus {
-            border-color: #4af626;
-        }
-
-        .search-bar input::placeholder {
-            color: #4b5563;
-        }
-
-        .search-bar button {
-            background: #2d3139;
-            color: #e4e6eb;
-            border: 1px solid #3d4149;
-            border-radius: 4px;
-            padding: 6px 14px;
-            cursor: pointer;
-            font-size: 13px;
-        }
-
-        .search-bar button:hover {
-            background: #3d4149;
-        }
-
-        .search-stats {
-            margin-top: 8px;
-            font-size: 12px;
-            color: #6b7280;
-            font-family: sans-serif;
-        }
-
-        #output mark {
-            background: #854d0e;
-            color: #fef3c7;
-            border-radius: 2px;
-            padding: 0 1px;
-        }
-
-        .level-filters {
-            display: flex;
-            gap: 6px;
-            margin-top: 12px;
-            flex-wrap: wrap;
-        }
-
-        .level-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background: #1c1f26;
-            color: #6b7280;
-            border: 1px solid #2d3139;
-            border-radius: 4px;
-            padding: 4px 10px;
-            cursor: pointer;
-            font-size: 12px;
-            font-family: monospace;
-            user-select: none;
-            transition: background 0.15s, color 0.15s;
-        }
-
-        .level-btn .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #4b5563;
-        }
-
-        .level-btn.active {
-            color: #e4e6eb;
-            border-color: #3d4149;
-        }
-
-        .level-btn.active[data-level="error"] { color: #f87171; border-color: #7f1d1d; }
-        .level-btn.active[data-level="error"] .dot { background: #f87171; }
-
-        .level-btn.active[data-level="warn"] { color: #fbbf24; border-color: #78350f; }
-        .level-btn.active[data-level="warn"] .dot { background: #fbbf24; }
-
-        .level-btn.active[data-level="info"] { color: #60a5fa; border-color: #1e3a5f; }
-        .level-btn.active[data-level="info"] .dot { background: #60a5fa; }
-
-        .level-btn.active[data-level="debug"] { color: #a78bfa; border-color: #4c1d95; }
-        .level-btn.active[data-level="debug"] .dot { background: #a78bfa; }
-
-        .level-btn.active[data-level="none"] { color: #9ca3af; border-color: #374151; }
-        .level-btn.active[data-level="none"] .dot { background: #9ca3af; }
-
-        .level-btn .count {
-            opacity: 0.6;
-            font-size: 11px;
         }
     </style>
 </head>
 
 <body>
+    <div class="app">
+        <header>
+            <div class="logo">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                </svg>
+            </div>
+            <div>
+                <h1>log-parser <span>/ wasm engine</span></h1>
+                <div class="file-badge" id="fileBadge" style="display: none;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    <strong id="fileName"></strong>
+                </div>
+            </div>
+        </header>
 
-    <div class="box">
-        <h2>Rust + Wasm Engine Sandbox</h2>
-        <p>Upload a log file to test the internal engine processing:</p>
-
-        <input type="file" id="fileInput" />
-
-        <div class="search-bar" id="searchBar" style="display: none;">
-            <input type="text" id="searchInput" placeholder="Search lines..." />
-            <button id="clearSearch">Clear</button>
+        <div class="drop-zone" id="dropZone">
+            <div class="icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10 9 9 9 8 9"/>
+                </svg>
+            </div>
+            <span class="label">Drop a log file here</span>
+            <span class="hint">or click to browse</span>
+            <input type="file" id="fileInput" />
         </div>
-        <div class="search-stats" id="searchStats"></div>
 
-        <div class="level-filters" id="levelFilters" style="display: none;">
-            <button class="level-btn active" data-level="error">ERROR <span class="dot"></span><span class="count" id="countError"></span></button>
-            <button class="level-btn active" data-level="warn">WARN <span class="dot"></span><span class="count" id="countWarn"></span></button>
-            <button class="level-btn active" data-level="info">INFO <span class="dot"></span><span class="count" id="countInfo"></span></button>
-            <button class="level-btn active" data-level="debug">DEBUG <span class="dot"></span><span class="count" id="countDebug"></span></button>
-            <button class="level-btn active" data-level="none">OTHER <span class="dot"></span><span class="count" id="countNone"></span></button>
+        <div class="toolbar" id="toolbar" style="display: none;">
+            <div class="search-box">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M11.5 7a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-.82 4.74a6 6 0 1 1 1.06-1.06l3.04 3.04a.75.75 0 1 1-1.06 1.06l-3.04-3.04Z"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Search..." />
+            </div>
+            <button class="btn" id="clearSearch">Clear</button>
         </div>
 
-        <h3>Engine State:</h3>
-        <div id="output">Initializing...</div>
+        <div class="level-bar" id="levelBar" style="display: none;">
+            <button class="level-chip on" data-level="error">ERROR <span class="dot"></span><span class="n" id="nError"></span></button>
+            <button class="level-chip on" data-level="warn">WARN <span class="dot"></span><span class="n" id="nWarn"></span></button>
+            <button class="level-chip on" data-level="info">INFO <span class="dot"></span><span class="n" id="nInfo"></span></button>
+            <button class="level-chip on" data-level="debug">DEBUG <span class="dot"></span><span class="n" id="nDebug"></span></button>
+            <button class="level-chip on" data-level="none">OTHER <span class="dot"></span><span class="n" id="nNone"></span></button>
+        </div>
+
+        <div class="stats" id="stats" style="display: none;">
+            <span><strong id="sTotal"></strong> lines</span>
+            <span><strong id="sErrors"></strong> errors</span>
+            <span><strong id="sFiltered"></strong> shown</span>
+        </div>
+
+        <div id="logContainer">
+            <div class="empty-state">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10 9 9 9 8 9"/>
+                </svg>
+                <span>Drop a log file or click above to begin</span>
+            </div>
+        </div>
 
         <div class="pagination" id="pagination" style="display: none;">
-            <button id="prevBtn" disabled>Previous</button>
-            <span class="page-info" id="pageInfo">Page 1 of 1</span>
-            <button id="nextBtn" disabled>Next</button>
+            <button id="prevBtn" disabled>&larr; Prev</button>
+            <span id="pageInfo">1 / 1</span>
+            <button id="nextBtn" disabled>Next &rarr;</button>
         </div>
     </div>
 
     <script type="module">
         import init, { LogIndexer } from '../pkg/log_parser.js';
 
+        const dropZone = document.getElementById('dropZone');
         const fileInput = document.getElementById('fileInput');
-        const output = document.getElementById('output');
+        const toolbar = document.getElementById('toolbar');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearchBtn = document.getElementById('clearSearch');
+        const levelBar = document.getElementById('levelBar');
+        const logContainer = document.getElementById('logContainer');
         const pagination = document.getElementById('pagination');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const pageInfo = document.getElementById('pageInfo');
-        const searchBar = document.getElementById('searchBar');
-        const searchInput = document.getElementById('searchInput');
-        const clearSearchBtn = document.getElementById('clearSearch');
-        const searchStats = document.getElementById('searchStats');
-        const levelFilters = document.getElementById('levelFilters');
-        const countError = document.getElementById('countError');
-        const countWarn = document.getElementById('countWarn');
-        const countInfo = document.getElementById('countInfo');
-        const countDebug = document.getElementById('countDebug');
-        const countNone = document.getElementById('countNone');
+        const stats = document.getElementById('stats');
+        const sTotal = document.getElementById('sTotal');
+        const sErrors = document.getElementById('sErrors');
+        const sFiltered = document.getElementById('sFiltered');
+        const fileBadge = document.getElementById('fileBadge');
+        const fileNameEl = document.getElementById('fileName');
 
-        const LEVEL_MAP = { error: 4, warn: 3, info: 2, debug: 1, none: 0 };
-        const PAGE_SIZE = 20;
+        const PAGE_SIZE = 100;
+
         let indexer = null;
         let totalLines = 0;
         let currentPage = 1;
         let filteredIndices = null;
         let searchQuery = '';
         let activeLevels = new Set(['error', 'warn', 'info', 'debug', 'none']);
+        let fileName = '';
 
-        function escapeHtml(text) {
-            return text
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;');
+        function escapeHtml(t) {
+            return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         }
 
-        function highlightMatch(text, query) {
-            if (!query) return escapeHtml(text);
-            const escaped = escapeHtml(text);
-            const re = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
-            return escaped.replace(re, (m) => `<mark>${m}</mark>`);
+        function highlight(t, q) {
+            if (!q) return escapeHtml(t);
+            const e = escapeHtml(t);
+            const re = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+            return e.replace(re, m => `<mark>${m}</mark>`);
         }
 
         function rebuildFiltered() {
             if (!indexer) return;
             const hasSearch = searchQuery.length > 0;
-            const allLevelsActive = activeLevels.size === 5;
-
-            if (!hasSearch && allLevelsActive) {
-                filteredIndices = null;
-                return;
-            }
-
+            const allActive = activeLevels.size === 5;
+            if (!hasSearch && allActive) { filteredIndices = null; return; }
             const re = hasSearch ? new RegExp(searchQuery, 'i') : null;
             filteredIndices = [];
             for (let i = 0; i < totalLines; i++) {
-                if (!allLevelsActive) {
-                    const level = indexer.get_line_level(i);
-                    const levelName = ['none', 'debug', 'info', 'warn', 'error'][level];
-                    if (!activeLevels.has(levelName)) continue;
+                if (!allActive) {
+                    const lv = indexer.get_line_level(i);
+                    const name = ['none', 'debug', 'info', 'warn', 'error'][lv];
+                    if (!activeLevels.has(name)) continue;
                 }
                 if (re) {
                     const line = indexer.get_line(i);
@@ -284,153 +516,143 @@
             }
         }
 
-        function renderPage() {
-            const indices = filteredIndices || null;
-            const count = indices ? indices.length : totalLines;
+        function getCount() {
+            return filteredIndices ? filteredIndices.length : totalLines;
+        }
+
+        function renderVirtual() {
+            const count = getCount();
             const totalPages = Math.max(1, Math.ceil(count / PAGE_SIZE));
-
             if (currentPage > totalPages) currentPage = totalPages;
-
             const start = (currentPage - 1) * PAGE_SIZE;
             const end = Math.min(start + PAGE_SIZE, count);
-            const lines = [];
 
+            const lines = [];
             for (let i = start; i < end; i++) {
-                const lineIdx = indices ? indices[i] : i;
-                const line = indexer.get_line(lineIdx);
-                const lineNum = String(lineIdx + 1).padStart(6, ' ');
-                const prefix = lineNum + ' | ';
-                lines.push(prefix + highlightMatch(line ?? '', searchQuery));
+                const idx = filteredIndices ? filteredIndices[i] : i;
+                const line = indexer.get_line(idx);
+                const lv = indexer.get_line_level(idx);
+                const cls = ['none', 'debug', 'info', 'warn', 'error'][lv];
+                const num = String(idx + 1).padStart(6, ' ');
+                lines.push(
+                    `<div class="log-line ll-${cls}">` +
+                    `<span class="ln">${num}</span>` +
+                    `<span>${highlight(line ?? '', searchQuery)}</span>` +
+                    `</div>`
+                );
             }
 
-            output.innerHTML = lines.length > 0
-                ? lines.join('\n')
-                : 'No matching lines.';
+            logContainer.innerHTML = count > 0
+                ? `<div class="scroll-wrap">${lines.join('')}</div>`
+                : `<div class="empty-state">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                    <span>No matching lines</span>
+                </div>`;
 
-            pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+            pageInfo.textContent = `${currentPage} / ${totalPages}`;
             prevBtn.disabled = currentPage <= 1;
             nextBtn.disabled = currentPage >= totalPages;
+            pagination.style.display = 'flex';
 
             if (searchQuery || activeLevels.size < 5) {
-                searchStats.textContent = `${count.toLocaleString()} of ${totalLines.toLocaleString()} lines shown`;
+                sFiltered.textContent = count.toLocaleString();
+                stats.style.display = 'flex';
             } else {
-                searchStats.textContent = '';
+                stats.style.display = 'none';
             }
         }
 
-        prevBtn.addEventListener('click', () => {
-            if (currentPage > 1) {
-                currentPage--;
-                renderPage();
-            }
-        });
+        prevBtn.addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderVirtual(); } });
+        nextBtn.addEventListener('click', () => { currentPage++; renderVirtual(); });
 
-        nextBtn.addEventListener('click', () => {
-            currentPage++;
-            renderPage();
-        });
-
-        let searchTimeout = null;
+        let searchTimer = null;
         searchInput.addEventListener('input', () => {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(() => {
                 searchQuery = searchInput.value.trim();
                 currentPage = 1;
                 rebuildFiltered();
-                renderPage();
+                renderVirtual();
             }, 200);
         });
 
         clearSearchBtn.addEventListener('click', () => {
             searchInput.value = '';
             searchQuery = '';
-            filteredIndices = null;
             currentPage = 1;
-            searchStats.textContent = '';
-            renderPage();
+            rebuildFiltered();
+            renderVirtual();
         });
 
-        function updateLevelCounts() {
-            if (!indexer) return;
-            countError.textContent = indexer.count_by_level(4) || '';
-            countWarn.textContent = indexer.count_by_level(3) || '';
-            countInfo.textContent = indexer.count_by_level(2) || '';
-            countDebug.textContent = indexer.count_by_level(1) || '';
-            countNone.textContent = indexer.count_by_level(0) || '';
-        }
-
-        document.querySelectorAll('.level-btn').forEach((btn) => {
-            btn.addEventListener('click', () => {
-                const level = btn.dataset.level;
-                if (activeLevels.has(level)) {
-                    activeLevels.delete(level);
-                    btn.classList.remove('active');
-                } else {
-                    activeLevels.add(level);
-                    btn.classList.add('active');
-                }
+        document.querySelectorAll('.level-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                const lv = chip.dataset.level;
+                if (activeLevels.has(lv)) { activeLevels.delete(lv); chip.classList.remove('on'); }
+                else { activeLevels.add(lv); chip.classList.add('on'); }
                 currentPage = 1;
                 rebuildFiltered();
-                renderPage();
+                renderVirtual();
             });
         });
 
-        async function start() {
-            try {
-                await init();
-                output.innerText = "Engine loaded. Ready for file streaming.";
-
-                fileInput.addEventListener('change', async (event) => {
-                    const file = event.target.files[0];
-                    if (!file) return;
-
-                    output.innerText = `Streaming ${file.name}...`;
-                    pagination.style.display = 'none';
-                    searchBar.style.display = 'none';
-                    levelFilters.style.display = 'none';
-                    searchStats.textContent = '';
-
-                    const reader = new FileReader();
-                    reader.onload = async (e) => {
-                        const fileBytes = new Uint8Array(e.target.result);
-
-                        console.time("Processing Time");
-                        indexer = new LogIndexer(fileBytes);
-                        console.timeEnd("Processing Time");
-
-                        totalLines = indexer.total_lines();
-                        const totalErrors = indexer.total_errors();
-                        currentPage = 1;
-                        filteredIndices = null;
-                        searchQuery = '';
-                        searchInput.value = '';
-                        activeLevels = new Set(['error', 'warn', 'info', 'debug', 'none']);
-                        document.querySelectorAll('.level-btn').forEach((b) => b.classList.add('active'));
-
-                        if (totalLines === 0) {
-                            output.innerText = 'No lines found in file.';
-                            return;
-                        }
-
-                        pagination.style.display = 'flex';
-                        searchBar.style.display = 'flex';
-                        levelFilters.style.display = 'flex';
-                        updateLevelCounts();
-                        renderPage();
-
-                        console.log(`Loaded: ${totalLines.toLocaleString()} lines, ${totalErrors.toLocaleString()} errors`);
-                    };
-                    reader.readAsArrayBuffer(file);
-                });
-            } catch (err) {
-                output.innerText = "Error loading Wasm engine: " + err;
-                console.error(err);
-            }
+        function updateCounts() {
+            if (!indexer) return;
+            document.getElementById('nError').textContent = indexer.count_by_level(4) || '';
+            document.getElementById('nWarn').textContent = indexer.count_by_level(3) || '';
+            document.getElementById('nInfo').textContent = indexer.count_by_level(2) || '';
+            document.getElementById('nDebug').textContent = indexer.count_by_level(1) || '';
+            document.getElementById('nNone').textContent = indexer.count_by_level(0) || '';
         }
 
-        start();
-    </script>
+        function loadFile(file) {
+            fileName = file.name;
+            toolbar.style.display = 'flex';
+            fileNameEl.textContent = fileName;
+            fileBadge.style.display = 'inline-flex';
+            logContainer.innerHTML = `<div class="empty-state">Indexing ${escapeHtml(fileName)}...</div>`;
 
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const bytes = new Uint8Array(e.target.result);
+                console.time('Index');
+                indexer = new LogIndexer(bytes);
+                console.timeEnd('Index');
+
+                totalLines = indexer.total_lines();
+                const errors = indexer.total_errors();
+                currentPage = 1;
+                filteredIndices = null;
+                searchQuery = '';
+                searchInput.value = '';
+                activeLevels = new Set(['error', 'warn', 'info', 'debug', 'none']);
+                document.querySelectorAll('.level-chip').forEach(c => c.classList.add('on'));
+
+                if (totalLines === 0) {
+                    logContainer.innerHTML = `<div class="empty-state">No lines found</div>`;
+                    return;
+                }
+
+                sTotal.textContent = totalLines.toLocaleString();
+                sErrors.textContent = errors.toLocaleString();
+                sFiltered.textContent = totalLines.toLocaleString();
+                stats.style.display = 'flex';
+                levelBar.style.display = 'flex';
+                updateCounts();
+                renderVirtual();
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        dropZone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => { if (e.target.files[0]) loadFile(e.target.files[0]); });
+        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+        dropZone.addEventListener('drop', (e) => { e.preventDefault(); dropZone.classList.remove('dragover'); if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]); });
+
+        init();
+    </script>
 </body>
 
 </html>
