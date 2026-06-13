@@ -6,15 +6,20 @@ const LEVEL_INFO: u8 = 2;
 const LEVEL_WARN: u8 = 3;
 const LEVEL_ERROR: u8 = 4;
 
+fn to_lower(bytes: &[u8]) -> Vec<u8> {
+    bytes.iter().map(|&b| if b >= b'A' && b <= b'Z' { b + 32 } else { b }).collect()
+}
+
 fn detect_level(line: &[u8]) -> u8 {
-    let has = |pat: &[u8]| line.windows(pat.len()).any(|w| w == pat);
-    if has(b"ERROR") || has(b"ERRO") {
+    let lower = to_lower(line);
+    let has = |pat: &[u8]| lower.windows(pat.len()).any(|w| w == pat);
+    if has(b"error") || has(b"erro") {
         LEVEL_ERROR
-    } else if has(b"WARN") {
+    } else if has(b"warn") {
         LEVEL_WARN
-    } else if has(b"INFO") {
+    } else if has(b"info") {
         LEVEL_INFO
-    } else if has(b"DEBUG") || has(b"DBG") {
+    } else if has(b"debug") || has(b"dbg") {
         LEVEL_DEBUG
     } else {
         LEVEL_NONE
@@ -57,6 +62,15 @@ impl LogIndexer {
                 if current_start < data.len() {
                     all_lines.push(current_start);
                 }
+            }
+        }
+
+        if !data.is_empty() && data[data.len() - 1] != 10 {
+            let tail = &data[current_start..];
+            let level = detect_level(tail);
+            line_levels.push(level);
+            if level == LEVEL_ERROR {
+                error_lines.push(all_lines.len() - 1);
             }
         }
 
