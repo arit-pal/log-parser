@@ -125,6 +125,61 @@
             border-radius: 2px;
             padding: 0 1px;
         }
+
+        .level-filters {
+            display: flex;
+            gap: 6px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .level-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #1c1f26;
+            color: #6b7280;
+            border: 1px solid #2d3139;
+            border-radius: 4px;
+            padding: 4px 10px;
+            cursor: pointer;
+            font-size: 12px;
+            font-family: monospace;
+            user-select: none;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .level-btn .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4b5563;
+        }
+
+        .level-btn.active {
+            color: #e4e6eb;
+            border-color: #3d4149;
+        }
+
+        .level-btn.active[data-level="error"] { color: #f87171; border-color: #7f1d1d; }
+        .level-btn.active[data-level="error"] .dot { background: #f87171; }
+
+        .level-btn.active[data-level="warn"] { color: #fbbf24; border-color: #78350f; }
+        .level-btn.active[data-level="warn"] .dot { background: #fbbf24; }
+
+        .level-btn.active[data-level="info"] { color: #60a5fa; border-color: #1e3a5f; }
+        .level-btn.active[data-level="info"] .dot { background: #60a5fa; }
+
+        .level-btn.active[data-level="debug"] { color: #a78bfa; border-color: #4c1d95; }
+        .level-btn.active[data-level="debug"] .dot { background: #a78bfa; }
+
+        .level-btn.active[data-level="none"] { color: #9ca3af; border-color: #374151; }
+        .level-btn.active[data-level="none"] .dot { background: #9ca3af; }
+
+        .level-btn .count {
+            opacity: 0.6;
+            font-size: 11px;
+        }
     </style>
 </head>
 
@@ -141,6 +196,14 @@
             <button id="clearSearch">Clear</button>
         </div>
         <div class="search-stats" id="searchStats"></div>
+
+        <div class="level-filters" id="levelFilters" style="display: none;">
+            <button class="level-btn active" data-level="error">ERROR <span class="dot"></span><span class="count" id="countError"></span></button>
+            <button class="level-btn active" data-level="warn">WARN <span class="dot"></span><span class="count" id="countWarn"></span></button>
+            <button class="level-btn active" data-level="info">INFO <span class="dot"></span><span class="count" id="countInfo"></span></button>
+            <button class="level-btn active" data-level="debug">DEBUG <span class="dot"></span><span class="count" id="countDebug"></span></button>
+            <button class="level-btn active" data-level="none">OTHER <span class="dot"></span><span class="count" id="countNone"></span></button>
+        </div>
 
         <h3>Engine State:</h3>
         <div id="output">Initializing...</div>
@@ -165,13 +228,21 @@
         const searchInput = document.getElementById('searchInput');
         const clearSearchBtn = document.getElementById('clearSearch');
         const searchStats = document.getElementById('searchStats');
+        const levelFilters = document.getElementById('levelFilters');
+        const countError = document.getElementById('countError');
+        const countWarn = document.getElementById('countWarn');
+        const countInfo = document.getElementById('countInfo');
+        const countDebug = document.getElementById('countDebug');
+        const countNone = document.getElementById('countNone');
 
+        const LEVEL_MAP = { error: 4, warn: 3, info: 2, debug: 1, none: 0 };
         const PAGE_SIZE = 20;
         let indexer = null;
         let totalLines = 0;
         let currentPage = 1;
         let filteredIndices = null;
         let searchQuery = '';
+        let activeLevels = new Set(['error', 'warn', 'info', 'debug', 'none']);
 
         function escapeHtml(text) {
             return text
@@ -188,15 +259,28 @@
         }
 
         function rebuildFiltered() {
-            if (!searchQuery || !indexer) {
+            if (!indexer) return;
+            const hasSearch = searchQuery.length > 0;
+            const allLevelsActive = activeLevels.size === 5;
+
+            if (!hasSearch && allLevelsActive) {
                 filteredIndices = null;
                 return;
             }
-            const re = new RegExp(searchQuery, 'i');
+
+            const re = hasSearch ? new RegExp(searchQuery, 'i') : null;
             filteredIndices = [];
             for (let i = 0; i < totalLines; i++) {
-                const line = indexer.get_line(i);
-                if (line && re.test(line)) filteredIndices.push(i);
+                if (!allLevelsActive) {
+                    const level = indexer.get_line_level(i);
+                    const levelName = ['none', 'debug', 'info', 'warn', 'error'][level];
+                    if (!activeLevels.has(levelName)) continue;
+                }
+                if (re) {
+                    const line = indexer.get_line(i);
+                    if (!line || !re.test(line)) continue;
+                }
+                filteredIndices.push(i);
             }
         }
 
@@ -227,8 +311,8 @@
             prevBtn.disabled = currentPage <= 1;
             nextBtn.disabled = currentPage >= totalPages;
 
-            if (searchQuery) {
-                searchStats.textContent = `${count.toLocaleString()} of ${totalLines.toLocaleString()} lines match`;
+            if (searchQuery || activeLevels.size < 5) {
+                searchStats.textContent = `${count.toLocaleString()} of ${totalLines.toLocaleString()} lines shown`;
             } else {
                 searchStats.textContent = '';
             }
@@ -266,6 +350,31 @@
             renderPage();
         });
 
+        function updateLevelCounts() {
+            if (!indexer) return;
+            countError.textContent = indexer.count_by_level(4) || '';
+            countWarn.textContent = indexer.count_by_level(3) || '';
+            countInfo.textContent = indexer.count_by_level(2) || '';
+            countDebug.textContent = indexer.count_by_level(1) || '';
+            countNone.textContent = indexer.count_by_level(0) || '';
+        }
+
+        document.querySelectorAll('.level-btn').forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const level = btn.dataset.level;
+                if (activeLevels.has(level)) {
+                    activeLevels.delete(level);
+                    btn.classList.remove('active');
+                } else {
+                    activeLevels.add(level);
+                    btn.classList.add('active');
+                }
+                currentPage = 1;
+                rebuildFiltered();
+                renderPage();
+            });
+        });
+
         async function start() {
             try {
                 await init();
@@ -278,6 +387,7 @@
                     output.innerText = `Streaming ${file.name}...`;
                     pagination.style.display = 'none';
                     searchBar.style.display = 'none';
+                    levelFilters.style.display = 'none';
                     searchStats.textContent = '';
 
                     const reader = new FileReader();
@@ -294,6 +404,8 @@
                         filteredIndices = null;
                         searchQuery = '';
                         searchInput.value = '';
+                        activeLevels = new Set(['error', 'warn', 'info', 'debug', 'none']);
+                        document.querySelectorAll('.level-btn').forEach((b) => b.classList.add('active'));
 
                         if (totalLines === 0) {
                             output.innerText = 'No lines found in file.';
@@ -302,6 +414,8 @@
 
                         pagination.style.display = 'flex';
                         searchBar.style.display = 'flex';
+                        levelFilters.style.display = 'flex';
+                        updateLevelCounts();
                         renderPage();
 
                         console.log(`Loaded: ${totalLines.toLocaleString()} lines, ${totalErrors.toLocaleString()} errors`);
