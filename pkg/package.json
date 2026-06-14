@@ -1,0 +1,15 @@
+{
+  "name": "log-parser",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "log_parser_bg.wasm",
+    "log_parser.js",
+    "log_parser.d.ts"
+  ],
+  "main": "log_parser.js",
+  "types": "log_parser.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
