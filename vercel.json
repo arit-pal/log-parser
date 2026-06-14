@@ -1,10 +1,13 @@
 {
   "version": 2,
   "cleanUrls": true,
+  "outputDirectory": ".",
   "routes": [
     {
       "src": "/pkg/(.*)",
-      "headers": { "Cache-Control": "max-age=31536000, immutable" },
+      "headers": {
+        "Cache-Control": "max-age=31536000, immutable"
+      },
       "dest": "/pkg/$1"
     },
     {
